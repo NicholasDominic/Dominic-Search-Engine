@@ -1,0 +1,80 @@
+from nltk import sent_tokenize
+from nltk import word_tokenize
+
+from nltk.stem import PorterStemmer
+from nltk.stem import LancasterStemmer
+from nltk.stem import SnowballStemmer
+from nltk.stem import WordNetLemmatizer
+
+from nltk.probability import FreqDist
+
+from nltk.corpus import stopwords
+
+data = "NLTK is a leading platform for building Python programs to work with human language data. It provides easy-to-use interfaces to over 50 corpora and lexical resources such as WordNet, along with a suite of text processing libraries for classification, tokenization, stemming, tagging, parsing, and semantic reasoning, wrappers for industrial-strength NLP libraries, and an active discussion forum."
+
+# TOKENIZE (consist of sent_tokenize and word_tokenize)
+sentence = sent_tokenize(data) #sentence
+word = word_tokenize(data) #words
+
+for x in sentence:
+    print(x+'\n')
+for y in word:
+    print(y)
+print('\n')
+
+take_first_sentence = sentence[0]
+print(take_first_sentence)
+
+# STEMMING
+
+word_1 = ["writes", "wrote", "written", "writing"]
+for a in word_1:
+    a = PorterStemmer().stem(a)
+    print(a)
+print('\n')
+
+word_2 = ["writes", "wrote", "written", "writing"]
+for b in word_2:
+    b = LancasterStemmer().stem(b)
+    print(b)
+print('\n')
+
+word_3 = ["writes", "wrote", "written", "writing"]
+for c in word_3:
+    c = SnowballStemmer("english").stem(c)
+    print(c)
+print('\n')
+
+word_4 = ["writes", "wrote", "written", "writing"]
+for d in word_4:
+    d = WordNetLemmatizer().lemmatize(d, "v")
+    # v for VERB
+    # a for ADJECTIVE
+    # r for ADVERB
+    # n for NOUN
+    print(d)
+print('\n')
+
+word_adj = ["better", "worse", "worst"]
+for e in word_adj:
+    e = WordNetLemmatizer().lemmatize(e, "a")
+    print(e)
+
+# FREQUENCY DISTRIBUTION
+
+first_sentence_tokenized = word_tokenize(sentence[0])
+freq = FreqDist(first_sentence_tokenized)
+print(freq)
+
+for f, g in freq.most_common():
+    print(f, g)
+
+# STOP WORDS
+
+eng = stopwords.words("english")
+result = []
+
+for h in word:
+    if h in eng:
+        result.append(h)
+print(result)
